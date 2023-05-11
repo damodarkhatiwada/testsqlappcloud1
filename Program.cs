@@ -1,7 +1,13 @@
 using testsqlappcloud.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = "Endpoint=https://custumcongi.azconfig.io;Id=sHhM;Secret=dTJm9C99RuLSBsBQbnJz7CzSVzchgGXecPbhwO7E5Z0=";
+builder.Host.ConfigureHostConfiguration(builder =>
 
+builder.AddAzureAppConfiguration(connectionString)
+
+
+); 
 builder.Services.AddTransient<IProductService, ProductService>();
 
 // Add services to the container.

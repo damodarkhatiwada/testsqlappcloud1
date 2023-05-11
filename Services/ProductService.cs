@@ -27,7 +27,7 @@ namespace testsqlappcloud.Services
             //_builder.ConnectTimeout = 60;
             //return new SqlConnection(_builder.ConnectionString);
 
-            return new SqlConnection(_configuration.GetConnectionString("SQLConnection"));
+            return new SqlConnection(_configuration["SQLConnection"])gur;
         }
         public List<Product> GetProducts()
         {
