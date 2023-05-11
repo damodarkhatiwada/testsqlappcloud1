@@ -3,7 +3,7 @@ using testsqlappcloud.Models;
 
 namespace testsqlappcloud.Services
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
 
         private static string db_source = "testsqlserver-db.database.windows.net";
@@ -11,20 +11,28 @@ namespace testsqlappcloud.Services
         private static string db_password = "Applic@t!0n@123";
         private static string db_database = "testsqldb";
 
+        private readonly IConfiguration _configuration;
+        public ProductService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         private SqlConnection GetConnection()
         {
-            var _builder = new SqlConnectionStringBuilder();
-            _builder.DataSource = db_source;
-            _builder.UserID = db_user;
-            _builder.Password = db_password;
-            _builder.InitialCatalog = db_database;
-            _builder.ConnectTimeout = 60;
-            return new SqlConnection(_builder.ConnectionString);
+            //var _builder = new SqlConnectionStringBuilder();
+            //_builder.DataSource = db_source;
+            //_builder.UserID = db_user;
+            //_builder.Password = db_password;
+            //_builder.InitialCatalog = db_database;
+            //_builder.ConnectTimeout = 60;
+            //return new SqlConnection(_builder.ConnectionString);
+
+            return new SqlConnection(_configuration.GetConnectionString("SQLConnection"));
         }
         public List<Product> GetProducts()
         {
             SqlConnection conn = GetConnection();
-            
+
             List<Product> products = new List<Product>();
             string statement = "select * from products";
             conn.Open();

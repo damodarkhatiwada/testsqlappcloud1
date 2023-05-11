@@ -8,14 +8,15 @@ namespace testsqlappcloud.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+        private readonly IProductService _productService;
 
         public List<Product> Products;
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(ILogger<IndexModel> logger, IProductService productService)
         {
             _logger = logger;
-            ProductService productService = new ProductService();
+            _productService = productService;
 
-            Products = productService.GetProducts();
+            Products = _productService.GetProducts();
         }
 
         public void OnGet()
