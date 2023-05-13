@@ -37,7 +37,7 @@ namespace testsqlappcloud.Services
             using HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(fuctionfUrl);
             string content = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<List<Product>>(content);           
+            return JsonSerializer.Deserialize<List<Product>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true});           
 
 
         }
