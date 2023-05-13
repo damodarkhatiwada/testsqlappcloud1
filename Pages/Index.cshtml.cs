@@ -16,7 +16,7 @@ namespace testsqlappcloud.Pages
             _logger = logger;
             _productService = productService;
 
-            Products = _productService.GetProducts();
+            Products = _productService.GetProducts().GetAwaiter().GetResult();
         }
 
         public void OnGet()

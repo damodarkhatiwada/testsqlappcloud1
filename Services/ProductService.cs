@@ -1,4 +1,6 @@
-﻿using System.Data.SqlClient;
+﻿
+using System.Data.SqlClient;
+using System.Text.Json;
 using testsqlappcloud.Models;
 
 namespace testsqlappcloud.Services
@@ -27,30 +29,15 @@ namespace testsqlappcloud.Services
             //_builder.ConnectTimeout = 60;
             //return new SqlConnection(_builder.ConnectionString);
 
-            return new SqlConnection(_configuration["SQLConnection"])gur;
+            return new SqlConnection(_configuration["SQLConnection"]);
         }
-        public List<Product> GetProducts()
+        public async Task<List<Product>> GetProducts()
         {
-            SqlConnection conn = GetConnection();
-
-            List<Product> products = new List<Product>();
-            string statement = "select * from products";
-            conn.Open();
-            SqlCommand command = new SqlCommand(statement, conn);
-            using SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                Product product = new Product()
-                {
-                    ProductID = reader.GetInt32(0),
-                    ProductName = reader.GetString(1),
-                    Quantity = reader.GetInt32(2)
-                };
-                products.Add(product);
-            }
-
-            conn.Close();
-            return products;
+            string fuctionfUrl = "https://functestda.azurewebsites.net/api/GetProduct?code=7ptfQLLvUWl2Un3F65PoIYk8s-1R8L-xPqLRHBd1ncPdAzFuNvlUhA==";
+            using HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(fuctionfUrl);
+            string content = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<List<Product>>(content);           
 
 
         }
