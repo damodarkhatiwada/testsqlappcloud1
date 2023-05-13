@@ -33,7 +33,7 @@ namespace testsqlappcloud.Services
         }
         public async Task<List<Product>> GetProducts()
         {
-            string fuctionfUrl = "https://functestda.azurewebsites.net/api/GetProduct?code=7ptfQLLvUWl2Un3F65PoIYk8s-1R8L-xPqLRHBd1ncPdAzFuNvlUhA==";
+            string fuctionfUrl = "https://functestda.azurewebsites.net/api/GetProducts?code=-X0BqsE8nEkUVkGdc138UylCTpKyfoCdPEvKez_uYhrDAzFuyq5Qlg==";
             using HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(fuctionfUrl);
             string content = await response.Content.ReadAsStringAsync();
